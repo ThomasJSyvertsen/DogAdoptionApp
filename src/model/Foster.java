@@ -1,63 +1,76 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  * @author Thomas Syvertsen - tjsyvertsen
  * CIS175 - Fall 2021
  * Sep 9, 2021
  */
+
+@Entity
+@Table(name = "FOSTER")
 public class Foster {
+	@Id
+	@GeneratedValue
+	@Column(name = "ID")
+	private int id;
+	@Column(name="FNAME")
 	private String fName;
+	@Column(name="LNAME")
 	private String lName;
+	@Column(name="ADDRESS")
 	private String address;
-	private boolean authorized;
-	private boolean hasDog;
-	private ArrayList<Dog> currentDogs;
-	private boolean hasRoom;
+	@Column(name="AUTHORIZED")
+	private boolean authorized;	
 	
+    @OneToMany(mappedBy = "foster", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable
+    (
+        name="FOSTERDOG",
+        joinColumns={ @JoinColumn(name="FOSTERID", referencedColumnName="FOSTERID") },
+        inverseJoinColumns={ @JoinColumn(name="DOGID", referencedColumnName="ID", unique=true) }
+    )
+	private ArrayList<Dog> currentDogs = new ArrayList<>();
+	@Column(name="MAXCAPACITY")
+	private int maxCapacity;
+	@Column(name="CURRENTCAPACITY")
+	private int currentCapacity;
 	
+	public Foster() {
+		super();
+	}
+
 	/**
 	 * @param fName
 	 * @param lName
-	 * @param hasDog
+	 * @param address
+	 * @param authorized
 	 * @param currentDogs
+	 * @param maxCapacity
+	 * @param currentCapacity
 	 */
-	public Foster(String fName, String lName, String address, boolean hasDog, ArrayList<Dog> currentDogs) {
+	public Foster(String fName, String lName, String address, boolean authorized, ArrayList<Dog> currentDogs,
+			int maxCapacity, int currentCapacity) {
+		super();
 		this.fName = fName;
 		this.lName = lName;
 		this.address = address;
-		this.hasDog = hasDog;
-		this.currentDogs = currentDogs;
-	}
-	
-	/**
-	 * @param fName
-	 * @param lName
-	 * @param authorized
-	 * @param hasDog
-	 * @param currentDogs
-	 * @param hasRoom
-	 */
-	public Foster(String fName, String lName, String address, boolean authorized, boolean hasDog, ArrayList<Dog> currentDogs,
-			boolean hasRoom) {
-		this(fName, lName, address, hasDog, currentDogs);
 		this.authorized = authorized;
-		this.hasRoom = hasRoom;
-	}
-
-	/**
-	 * @return the address
-	 */
-	public String getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(String address) {
-		this.address = address;
+		this.currentDogs = currentDogs;
+		this.maxCapacity = maxCapacity;
+		this.currentCapacity = currentCapacity;
 	}
 
 	/**
@@ -89,6 +102,20 @@ public class Foster {
 	}
 
 	/**
+	 * @return the address
+	 */
+	public String getAddress() {
+		return address;
+	}
+
+	/**
+	 * @param address the address to set
+	 */
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	/**
 	 * @return the authorized
 	 */
 	public boolean isAuthorized() {
@@ -100,20 +127,6 @@ public class Foster {
 	 */
 	public void setAuthorized(boolean authorized) {
 		this.authorized = authorized;
-	}
-
-	/**
-	 * @return the hasDog
-	 */
-	public boolean isHasDog() {
-		return hasDog;
-	}
-
-	/**
-	 * @param hasDog the hasDog to set
-	 */
-	public void setHasDog(boolean hasDog) {
-		this.hasDog = hasDog;
 	}
 
 	/**
@@ -131,17 +144,37 @@ public class Foster {
 	}
 
 	/**
-	 * @return the hasRoom
+	 * @return the maxCapacity
 	 */
-	public boolean isHasRoom() {
-		return hasRoom;
+	public int getMaxCapacity() {
+		return maxCapacity;
 	}
 
 	/**
-	 * @param hasRoom the hasRoom to set
+	 * @param maxCapacity the maxCapacity to set
 	 */
-	public void setHasRoom(boolean hasRoom) {
-		this.hasRoom = hasRoom;
+	public void setMaxCapacity(int maxCapacity) {
+		this.maxCapacity = maxCapacity;
 	}
 
+	/**
+	 * @return the currentCapacity
+	 */
+	public int getCurrentCapacity() {
+		return currentCapacity;
+	}
+
+	/**
+	 * @param currentCapacity the currentCapacity to set
+	 */
+	public void setCurrentCapacity(int currentCapacity) {
+		this.currentCapacity = currentCapacity;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 }

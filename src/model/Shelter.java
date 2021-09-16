@@ -1,15 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,27 +13,19 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "shelter")
+@Table(name = "SHELTER")
 public class Shelter {
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
-	@Column(name = "NAME")
+	@Column(name = "name")
 	private String name;
-	@Column(name = "ADDRESS")
+	@Column(name = "address")
 	private String address;
-    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable
-    (
-        name="SHELTERDOG",
-        joinColumns={ @JoinColumn(name="SHELTERID", referencedColumnName="SHELTERID") },
-        inverseJoinColumns={ @JoinColumn(name="DOGID", referencedColumnName="ID", unique=true) }
-    )
-	private ArrayList<Dog> currentDogs = new ArrayList<>();
-	@Column(name = "MAXCAPACITY")
+	@Column(name = "maxCapacity")
 	private int maxCapacity;
-	@Column(name = "CURRENTCAPACITY")
+	@Column(name = "currentCapacity")
 	private int currentCapacity;
 
 	public Shelter() {
@@ -53,18 +39,12 @@ public class Shelter {
 	 * @param maxCapacity
 	 * @param currentCapacity
 	 */
-	public Shelter(String name, String address, ArrayList<Dog> currentDogs, int maxCapacity, int currentCapacity) {
+	public Shelter(String name, String address, int maxCapacity, int currentCapacity) {
 		super();
 		this.name = name;
 		this.address = address;
-		this.currentDogs = currentDogs;
 		this.maxCapacity = maxCapacity;
 		this.currentCapacity = currentCapacity;
-	}
-	
-	public void addDog(Dog dog) {
-		currentDogs.add(dog);
-		currentDogs.set(currentCapacity, dog);
 	}
 
 	/**
@@ -93,20 +73,6 @@ public class Shelter {
 	 */
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	/**
-	 * @return the currentDogs
-	 */
-	public ArrayList<Dog> getCurrentDogs() {
-		return currentDogs;
-	}
-
-	/**
-	 * @param currentDogs the currentDogs to set
-	 */
-	public void setCurrentDogs(ArrayList<Dog> currentDogs) {
-		this.currentDogs = currentDogs;
 	}
 
 	/**
@@ -142,5 +108,5 @@ public class Shelter {
 	 */
 	public int getId() {
 		return id;
-	}
+	}	
 }

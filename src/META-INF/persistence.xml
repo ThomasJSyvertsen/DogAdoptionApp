@@ -9,7 +9,7 @@
 		<class>model.Application</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://cis175.caonyyybtmtk.us-east-1.rds.amazonaws.com/shopping"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://cis175.caonyyybtmtk.us-east-1.rds.amazonaws.com/adoption"/>
 			<property name="javax.persistence.jdbc.user" value="admin"/>
 			<property name="javax.persistence.jdbc.password" value="#$54^j2Q"/>
 			<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>

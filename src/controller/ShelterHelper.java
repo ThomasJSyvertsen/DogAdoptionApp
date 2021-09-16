@@ -18,7 +18,6 @@ public class ShelterHelper {
 	public void insertShelter(Shelter shelter) {
 		EntityManager em = emfactory.createEntityManager();
 		em.getTransaction().begin();
-		
 		em.persist(shelter);
 		em.getTransaction().commit();
 		em.close();

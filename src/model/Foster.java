@@ -1,16 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -34,15 +27,6 @@ public class Foster {
 	private String address;
 	@Column(name="AUTHORIZED")
 	private boolean authorized;	
-	
-    @OneToMany(mappedBy = "foster", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable
-    (
-        name="FOSTERDOG",
-        joinColumns={ @JoinColumn(name="FOSTERID", referencedColumnName="FOSTERID") },
-        inverseJoinColumns={ @JoinColumn(name="DOGID", referencedColumnName="ID", unique=true) }
-    )
-	private ArrayList<Dog> currentDogs = new ArrayList<>();
 	@Column(name="MAXCAPACITY")
 	private int maxCapacity;
 	@Column(name="CURRENTCAPACITY")
@@ -61,14 +45,13 @@ public class Foster {
 	 * @param maxCapacity
 	 * @param currentCapacity
 	 */
-	public Foster(String fName, String lName, String address, boolean authorized, ArrayList<Dog> currentDogs,
+	public Foster(String fName, String lName, String address, boolean authorized,
 			int maxCapacity, int currentCapacity) {
 		super();
 		this.fName = fName;
 		this.lName = lName;
 		this.address = address;
 		this.authorized = authorized;
-		this.currentDogs = currentDogs;
 		this.maxCapacity = maxCapacity;
 		this.currentCapacity = currentCapacity;
 	}
@@ -127,20 +110,6 @@ public class Foster {
 	 */
 	public void setAuthorized(boolean authorized) {
 		this.authorized = authorized;
-	}
-
-	/**
-	 * @return the currentDogs
-	 */
-	public ArrayList<Dog> getCurrentDogs() {
-		return currentDogs;
-	}
-
-	/**
-	 * @param currentDogs the currentDogs to set
-	 */
-	public void setCurrentDogs(ArrayList<Dog> currentDogs) {
-		this.currentDogs = currentDogs;
 	}
 
 	/**

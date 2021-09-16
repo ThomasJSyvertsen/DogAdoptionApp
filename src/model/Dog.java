@@ -1,21 +1,11 @@
 package model;
 
-import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * @author Thomas Syvertsen - tjsyvertsen 
@@ -24,34 +14,24 @@ import javax.persistence.TemporalType;
  */
 
 @Entity
-@Table(name = "dog")
+@Table(name = "DOG")
 public class Dog {
 	@Id
-	//@GeneratedValue
-	@Column(name = "ID")
+	@GeneratedValue
+	@Column(name = "id")
 	private Long id;
-	@Column(name = "NAME")
+	@Column(name = "name")
 	private String name;
-	@Column(name = "DEMEANOR")
+	@Column(name = "demeanor")
 	private String demeanor;
-	@Column(name = "BREED")
+	@Column(name = "breed")
 	private String breed;
-	@Column(name = "AGE")
+	@Column(name = "age")
 	private int age;
-	@Temporal(TemporalType.DATE)
-	@Column(name = "DATEFOUND")
-	private Date dateFound;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Shelter shelter;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Foster foster;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Application applicationDog;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Applicant applicantDog;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Applicant applicantDogRequested;
-	@Column(name = "LOCATION")
+	//@Temporal(TemporalType.DATE)
+	//@Column(name = "dateFound")
+	//private Date dateFound;
+	@Column(name = "location")
 	private String location;
 
 
@@ -66,19 +46,19 @@ public class Dog {
 	 * @param age
 	 * @param dateFound
 	 */
-	public Dog(String name, String demeanor, String breed, int age, Date dateFound) {
+	public Dog(String name, String demeanor, String breed, int age) {
 		super();
 		this.name = name;
 		this.demeanor = demeanor;
 		this.breed = breed;
 		this.age = age;
-		this.dateFound = dateFound;
+		//this.dateFound = dateFound;
 	}
- 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+	
+	public String returnDogDetails() {
+		return ("Name: " + this.name + " Demeanor: " + this.demeanor + " Breed: " + this.breed
+				+ " Age: " + this.age + " Location: " + this.location);
+	}
 
 	/**
 	 * @return the name
@@ -137,27 +117,6 @@ public class Dog {
 	}
 
 	/**
-	 * @return the dateFound
-	 */
-	public Date getDateFound() {
-		return dateFound;
-	}
-
-	/**
-	 * @param dateFound the dateFound to set
-	 */
-	public void setDateFound(Date dateFound) {
-		this.dateFound = dateFound;
-	}
-
-	/**
-	 * @return the id
-	 */
-	//public Long getId() {
-		//return id;
-	//}
-	
-	/**
 	 * @return the location
 	 */
 	public String getLocation() {
@@ -169,5 +128,12 @@ public class Dog {
 	 */
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
 	}
 }

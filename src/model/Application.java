@@ -1,15 +1,11 @@
 package model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * @author Thomas Syvertsen - tjsyvertsen 
@@ -18,21 +14,21 @@ import javax.persistence.Transient;
  */
 
 @Entity
-@Table(name = "application")
+@Table(name = "APPLICATION")
 public class Application {
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
-	@JoinColumn(name = "applicationDog")
+	@JoinColumn(name = "DOG")
 	private Dog dog;
-    @JoinTable(name = "SHELTER")
+    @JoinColumn(name = "SHELTER")
 	private Shelter shelter;
-    @JoinTable(name = "FOSTER")
+    @JoinColumn(name = "FOSTER")
 	private Foster foster;
-    @JoinTable(name = "APPLICANT")
+    @JoinColumn(name = "APPLICANT")
 	private Applicant applicant;
-	@Column(name = "COMPLETED")
+	@JoinColumn(name = "COMPLETED")
 	private boolean completed;
 	
 	

@@ -1,15 +1,9 @@
 package model;
 
-import java.util.ArrayList;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,21 +13,25 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "applicant")
+@Table(name = "APPLICANT")
 public class Applicant {
 	@Id
 	@GeneratedValue
-	@Column(name = "ID")
+	@Column(name = "id")
 	private int id;
-	@Column(name = "FNAME")
+	@Column(name = "fName")
 	private String fName;
-	@Column(name = "LNAME")
+	@Column(name = "lName")
 	private String lName;
-	@Column(name = "ADDRESS")
+	@Column(name = "address")
 	private String address;
-	@Column(name = "AUTHORIZED")
+	@Column(name = "authorized")
 	private boolean authorized;
-    @OneToMany(mappedBy = "applicantDog", cascade = CascadeType.ALL, orphanRemoval = true)
+	@Column(name = "hasPaid")
+	private boolean hasPaid;
+	
+	/*
+	 *     @OneToMany(mappedBy = "applicantDog", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinTable
     (
         name="APPLICANTDOG",
@@ -49,8 +47,7 @@ public class Applicant {
         inverseJoinColumns={ @JoinColumn(name="DOGID", referencedColumnName="ID", unique=true) }
     )
 	private ArrayList<Dog> dogsRequested;
-	@Column(name = "HASPAID")
-	private boolean hasPaid;
+	 */
 
 	/**
 	 * 
@@ -63,33 +60,23 @@ public class Applicant {
 	 * @param fName
 	 * @param lName
 	 * @param address
-	 */
-	public Applicant(String fName, String lName, String address) {
-		super();
-		this.fName = fName;
-		this.lName = lName;
-		this.address = address;
-	}
-
-	/**
-	 * @param fName
-	 * @param lName
-	 * @param address
 	 * @param authorized
-	 * @param currentDogs
-	 * @param dogsRequested
 	 * @param hasPaid
 	 */
-	public Applicant(String fName, String lName, String address, boolean authorized, ArrayList<Dog> currentDogs,
-			ArrayList<Dog> dogsRequested, boolean hasPaid) {
+	public Applicant(String fName, String lName, String address, boolean authorized, boolean hasPaid) {
 		super();
 		this.fName = fName;
 		this.lName = lName;
 		this.address = address;
 		this.authorized = authorized;
-		this.currentDogs = currentDogs;
-		this.dogsRequested = dogsRequested;
+		//this.currentDogs = currentDogs;
+		//this.dogsRequested = dogsRequested;
 		this.hasPaid = hasPaid;
+	}
+	
+	public String returnApplicantDetails() {
+		return (this.fName + " " + this.lName + " Address: " + this.address 
+				+ " Authorized: " + this.authorized + " Has Paid: " + this.hasPaid);
 	}
 
 	/**
@@ -146,34 +133,6 @@ public class Applicant {
 	 */
 	public void setAuthorized(boolean authorized) {
 		this.authorized = authorized;
-	}
-
-	/**
-	 * @return the currentDogs
-	 */
-	public ArrayList<Dog> getCurrentDogs() {
-		return currentDogs;
-	}
-
-	/**
-	 * @param currentDogs the currentDogs to set
-	 */
-	public void setCurrentDogs(ArrayList<Dog> currentDogs) {
-		this.currentDogs = currentDogs;
-	}
-
-	/**
-	 * @return the dogsRequested
-	 */
-	public ArrayList<Dog> getDogsRequested() {
-		return dogsRequested;
-	}
-
-	/**
-	 * @param dogsRequested the dogsRequested to set
-	 */
-	public void setDogsRequested(ArrayList<Dog> dogsRequested) {
-		this.dogsRequested = dogsRequested;
 	}
 
 	/**
